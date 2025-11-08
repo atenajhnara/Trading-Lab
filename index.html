@@ -1,64 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Trading Backtest</title>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <style>
-        body {
-            background-color: #101820;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        input, select, button {
-            padding: 8px;
-            margin: 5px;
-            font-size: 16px;
-        }
-        #graph {
-            width: 90%;
-            height: 600px;
-            margin: 20px auto;
-        }
-    </style>
-</head>
-<body>
-    <h1>Trading Backtest</h1>
-    
-    <!-- فرم بک‌تست -->
-    <form action="/backtest" method="post">
-        <input type="text" name="symbol" placeholder="Symbol (BTC, ETH)" required>
-        <select name="timeframe">
-            <option value="1h">1 Hour</option>
-            <option value="4h">4 Hours</option>
-            <option value="1d">1 Day</option>
-        </select>
-        <select name="strategy">
-            <option value="RSI">RSI</option>
-            <option value="RSI + MACD">RSI + MACD</option>
-        </select>
-        <button type="submit">شروع بک‌تست</button>
-    </form>
-
-    <!-- نمایش متن نتایج -->
-    {% if last_close %}
-    <h2>
-        ✅ نتایج بک‌تست {{ strategy }} برای {{ symbol.upper() }} ({{ timeframe }})<br>
-        آخرین قیمت: {{ last_close }} USD<br>
-        RSI: {{ last_rsi }}<br>
-        تعداد کندل‌ها: {{ candle_count }}
-    </h2>
-    {% endif %}
-
-    <!-- نمودار Plotly -->
-    {% if graphJSON %}
-    <div id="graph"></div>
-    <script>
-        var graph = {{ graphJSON | safe }};
-        Plotly.newPlot('graph', graph.data, graph.layout);
-    </script>
-    {% endif %}
-
-</body>
-</html>
+<form action="/backtest" method="post">
+    <input type="text" name="symbol" placeholder="Symbol (BTC, ETH)" required>
+    <select name="timeframe">
+        <option value="1h">1 Hour</option>
+        <option value="4h">4 Hours</option>
+        <option value="1d">1 Day</option>
+    </select>
+    <select name="strategy">
+        <option value="RSI">RSI</option>
+        <option value="RSI + MACD">RSI + MACD</option>
+    </select>
+    <button type="submit">Start Backtest</button>
+</form>
